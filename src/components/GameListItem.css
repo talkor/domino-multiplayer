@@ -1,0 +1,15 @@
+.game-list-item {
+  list-style: none;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.game-list-item:hover {
+  background-color: #666;
+}
+
+.game-list-item > h3 {
+  margin: 5px 0;
+}
