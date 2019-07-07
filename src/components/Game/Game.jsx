@@ -1,9 +1,9 @@
 import React from 'react';
-import PlayerStack from './PlayerStack.jsx';
+import PlayerStack from '../PlayerStack.jsx';
 import Board from './Board.jsx';
-import Stock from './Stock.jsx';
-import Toolbar from './Toolbar.jsx';
-import { tilesMap } from '../TilesMap';
+import Stock from '../Stock.jsx';
+import Toolbar from '../Toolbar.jsx';
+import { tilesMap } from '../../TilesMap';
 import './Game.css';
 
 const NUM_STACK = 6;

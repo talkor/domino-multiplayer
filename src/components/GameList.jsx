@@ -52,7 +52,7 @@ class GameList extends React.Component {
 
   render() {
     return (
-      <div className="game-list-container">
+      <div>
         <ul>
           {this.state.games.map((game, index) => (
             <GameListItem game={game} key={index} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,16 +12,18 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-page-wrapper">
-        <form onSubmit={this.handleLogin.bind(this)}>
-          <label className="username-label" htmlFor="username">
-            Name:
-          </label>
-          <input className="" name="username" />
-          <input className="" type="submit" value="login" />
-        </form>
-        {this.renderErrorMessage()}
-      </div>
+      <React.Fragment>
+        <h1>Domino</h1>
+        <div className="login-form">
+          <form onSubmit={this.onUserLogin.bind(this)}>
+            <input name="username" placeholder="Enter your name" />
+            <button value="login" className="game-button login-button">
+              Login
+            </button>
+          </form>
+          {this.renderErrorMessage()}
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -31,12 +34,12 @@ class Login extends React.Component {
     return null;
   }
 
-  handleLogin(event) {
+  onUserLogin(event) {
     event.preventDefault();
-    const userName = event.target.elements.username.value;
+    const username = event.target.elements.username.value;
     fetch('/users/add', {
       method: 'POST',
-      body: userName,
+      body: username,
       credentials: 'include'
     }).then(response => {
       if (response.ok) {

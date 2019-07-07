@@ -1,5 +1,7 @@
 import React from 'react';
 import GameList from './GameList.jsx';
+import UserList from './UserList.jsx';
+import './Loby.css';
 
 function Loby(props) {
   return (

@@ -1,8 +1,0 @@
-.game-list-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.user-list-container {
-  flex: 1;
-}

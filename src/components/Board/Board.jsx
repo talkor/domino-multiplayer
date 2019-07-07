@@ -1,5 +1,5 @@
 import React from 'react';
-import Tile from './Tile.jsx';
+import Tile from '../Tile.jsx';
 import './Board.css';
 
 const Board = props => {
