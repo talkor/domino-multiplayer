@@ -6,7 +6,7 @@ const games = [];
 
 const router = express.Router();
 
-router.use(bodyParser.text());
+router.use(bodyParser.json());
 
 router.get('/all', auth.userAuthentication, (req, res) => {
   res.json(games);
@@ -15,7 +15,7 @@ router.get('/all', auth.userAuthentication, (req, res) => {
 router.post('/new', auth.userAuthentication, (req, res) => {
   const game = req.body;
   // const userInfo = auth.getUserInfo(req.session.id);
-  games.push({ game });
+  games.push(JSON.parse(game));
   res.sendStatus(200);
 });
 

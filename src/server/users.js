@@ -1,8 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const bodyParser = require('body-parser');
 const auth = require('./auth');
 
+const router = express.Router();
+
 const users = [];
+
+router.use(bodyParser.json());
 
 router.get('/', auth.userAuthentication, (req, res) => {
   const userName = auth.getUserInfo(req.session.id).name;

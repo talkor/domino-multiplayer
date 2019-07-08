@@ -39,20 +39,18 @@ class NewGame extends React.Component {
 
   onNewGame(event) {
     event.preventDefault();
-
     const game = {
       title: event.target.elements.title.value,
       numPlayers: event.target.elements.numPlayers.value
     };
-
     fetch('/games/new', {
       method: 'POST',
-      body: game,
+      body: JSON.stringify(game),
       credentials: 'include'
     }).then(response => {
       if (response.ok) {
         this.setState({ errMessage: '' });
-        this.props.onGameCreated();
+        // this.props.onGameCreated();
       } else {
         if (response.status === 403) {
           // this.setState({
