@@ -11,7 +11,7 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    this.getChatContent();
+    this.getUsers();
   }
 
   componentWillUnmount() {
@@ -35,13 +35,13 @@ class UserList extends React.Component {
     );
   }
 
-  getChatContent() {
+  getUsers() {
     return fetch('/users/all', { method: 'GET', credentials: 'include' })
       .then(response => {
         if (!response.ok) {
           throw response;
         }
-        this.timeoutId = setTimeout(this.getChatContent.bind(this), 200);
+        this.timeoutId = setTimeout(this.getUsers.bind(this), 200);
         return response.json();
       })
       .then(users => {
