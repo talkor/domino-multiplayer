@@ -1,27 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('./auth');
-const loby = require('./loby');
 
-const users = express.Router();
+const users = [];
 
-users.get('/', auth.userAuthentication, (req, res) => {
+router.get('/', auth.userAuthentication, (req, res) => {
   const userName = auth.getUserInfo(req.session.id).name;
   res.json({ name: userName });
 });
 
-users.get('/all', auth.userAuthentication, (req, res) => {
-  res.json(userList);
+router.get('/all', auth.userAuthentication, (req, res) => {
+  res.json(users);
 });
 
-users.post('/add', auth.addUserToAuthList, (req, res) => {
+router.post('/add', auth.addUserToAuthList, (req, res) => {
+  users.push({ name: req.body });
   res.sendStatus(200);
 });
 
-users.get('/logout', [
+router.get('/logout', [
   (req, res, next) => {
     const userinfo = auth.getUserInfo(req.session.id);
-    loby.appendUserLogoutMessage(userinfo);
+    // chatManagement.appendUserLogoutMessage(userinfo);
     next();
   },
   auth.removeUserFromAuthList,
@@ -30,4 +30,4 @@ users.get('/logout', [
   }
 ]);
 
-module.exports = users;
+module.exports = router;

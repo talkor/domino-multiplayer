@@ -1,21 +1,21 @@
 const userList = {};
 
-const userAuthentication = (req, res, next) => {
+function userAuthentication(req, res, next) {
   if (userList[req.session.id] === undefined) {
     res.sendStatus(401);
   } else {
     next();
   }
-};
+}
 
 function addUserToAuthList(req, res, next) {
   if (userList[req.session.id] !== undefined) {
-    res.status(403).send('User already exist');
+    res.status(403).send('user already exist');
   } else {
     for (sessionid in userList) {
       const name = userList[sessionid];
       if (name === req.body) {
-        res.status(403).send('User name already exist');
+        res.status(403).send('user name already exist');
         return;
       }
     }

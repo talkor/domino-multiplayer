@@ -6,32 +6,19 @@ class UserList extends React.Component {
     super(props);
 
     this.state = {
-      users: [
-        {
-          id: 1,
-          name: 'Talko'
-        },
-        {
-          id: 2,
-          name: 'Daniel'
-        },
-        {
-          id: 3,
-          name: 'John'
-        }
-      ]
+      users: []
     };
   }
 
-  // componentDidMount() {
-  //   this.getChatContent();
-  // }
+  componentDidMount() {
+    this.getChatContent();
+  }
 
-  // componentWillUnmount() {
-  //   if (this.timeoutId) {
-  //     clearTimeout(this.timeoutId);
-  //   }
-  // }
+  componentWillUnmount() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+  }
 
   render() {
     return (
@@ -48,22 +35,22 @@ class UserList extends React.Component {
     );
   }
 
-  // getChatContent() {
-  //   return fetch('/chat', { method: 'GET', credentials: 'include' })
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw response;
-  //       }
-  //       this.timeoutId = setTimeout(this.getChatContent.bind(this), 200);
-  //       return response.json();
-  //     })
-  //     .then(content => {
-  //       this.setState(() => ({ content }));
-  //     })
-  //     .catch(err => {
-  //       throw err;
-  //     });
-  // }
+  getChatContent() {
+    return fetch('/users/all', { method: 'GET', credentials: 'include' })
+      .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        this.timeoutId = setTimeout(this.getChatContent.bind(this), 200);
+        return response.json();
+      })
+      .then(users => {
+        this.setState(() => ({ users }));
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 }
 
 export default UserList;
