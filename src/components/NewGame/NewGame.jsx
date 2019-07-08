@@ -6,7 +6,7 @@ class NewGame extends React.Component {
     super(props);
 
     this.state = {
-      errMessage: '',
+      errorMessage: '',
       showModal: false
     };
   }
@@ -19,7 +19,13 @@ class NewGame extends React.Component {
           <h1>Start a New Game</h1>
           <form onSubmit={this.onNewGame.bind(this)}>
             <label htmlFor="title">Game Title</label>
-            <input name="title" type="text" placeholder="Game Title" />
+            <input
+              name="title"
+              type="text"
+              placeholder="Game Title"
+              onChange={() => this.setState({ errorMessage: '' })}
+            />
+            {this.renderErrorMessage()}
 
             <label htmlFor="numPlayers">Players</label>
             <input defaultChecked type="radio" name="numPlayers" value="2" />
@@ -31,23 +37,28 @@ class NewGame extends React.Component {
               Create
             </button>
           </form>
-          {this.renderErrorMessage()}
         </div>
       </div>
     );
   }
 
   renderErrorMessage() {
-    if (this.state.errMessage) {
-      return <div>{this.state.errMessage}</div>;
+    if (this.state.errorMessage) {
+      return <span className="error-message">{this.state.errorMessage}</span>;
     }
     return null;
   }
 
   onNewGame(event) {
     event.preventDefault();
+    const title = event.target.elements.title.value;
+    if (!title) {
+      this.setState({ errorMessage: 'You must enter game title!' });
+      return;
+    }
+
     const game = {
-      title: event.target.elements.title.value,
+      title,
       numPlayers: event.target.elements.numPlayers.value
     };
     fetch('/games/new', {
@@ -56,13 +67,13 @@ class NewGame extends React.Component {
       credentials: 'include'
     }).then(response => {
       if (response.ok) {
-        this.setState({ errMessage: '' });
+        this.setState({ errorMessage: '' });
         this.props.onModalClose();
       } else {
         if (response.status === 403) {
-          // this.setState({
-          //   errMessage: 'Username already exist, please try another one'
-          // });
+          this.setState({
+            errorMessage: 'Game title already exist, please try another one'
+          });
         }
         // this.props.loginErrorHandler();
       }

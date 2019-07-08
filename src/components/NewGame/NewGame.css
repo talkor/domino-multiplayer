@@ -48,6 +48,14 @@
   margin: 20px auto;
 }
 
+.new-game-button:hover {
+  background-color: rgb(5, 117, 230, 1);
+}
+
+.error-message {
+  color: rgb(243, 0, 0);
+}
+
 .close {
   position: absolute;
   right: 15px;
