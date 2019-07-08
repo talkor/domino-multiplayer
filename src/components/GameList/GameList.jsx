@@ -1,5 +1,5 @@
 import React from 'react';
-import GameListItem from './GameListItem.jsx';
+import GameListItem from '../GameListItem/GameListItem.jsx';
 
 class GameList extends React.Component {
   constructor(props) {

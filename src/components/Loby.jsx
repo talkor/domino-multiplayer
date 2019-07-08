@@ -1,8 +1,8 @@
 import React from 'react';
-import GameList from './GameList.jsx';
+import GameList from './GameList/GameList.jsx';
 import UserList from './UserList.jsx';
 import './Loby.css';
-import NewGame from './NewGame.jsx';
+import NewGame from './NewGame/NewGame.jsx';
 
 class Loby extends React.Component {
   constructor(props) {
@@ -30,7 +30,10 @@ class Loby extends React.Component {
           <GameList />
           <UserList />
           {this.state.showNewGame && (
-            <NewGame onGameCreated={this.onGameCreated.bind(this)} />
+            <NewGame
+              // onGameCreated={this.onGameCreated.bind(this)}
+              onModalClose={this.onModalClose.bind(this)}
+            />
           )}
         </div>
       </div>
@@ -41,7 +44,9 @@ class Loby extends React.Component {
     this.setState({ showNewGame: true });
   }
 
-  onGameCreated() {}
+  onModalClose() {
+    this.setState({ showNewGame: false });
+  }
 }
 
 export default Loby;

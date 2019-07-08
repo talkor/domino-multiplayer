@@ -1,32 +1,39 @@
 import React from 'react';
+import './NewGame.css';
 
 class NewGame extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      errMessage: ''
+      errMessage: '',
+      showModal: false
     };
   }
 
   render() {
     return (
-      <React.Fragment>
-        <h1>Domino</h1>
-        <div className="new-game-form">
+      <div className="new-game-modal">
+        <div className="new-game-modal-main">
+          <a href="#" className="close" onClick={this.props.onModalClose} />
+          <h1>Start a New Game</h1>
           <form onSubmit={this.onNewGame.bind(this)}>
+            <label htmlFor="title">Game Title</label>
             <input name="title" type="text" placeholder="Game Title" />
-            <select defaultValue="2" name="numPlayers">
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
+
+            <label htmlFor="numPlayers">Players</label>
+            <input defaultChecked type="radio" name="numPlayers" value="2" />
+            <span> 2 Players </span>
+
+            <input type="radio" name="numPlayers" value="3" />
+            <span> 3 Players</span>
             <button value="login" className="game-button new-game-button">
               Create
             </button>
           </form>
           {this.renderErrorMessage()}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -50,7 +57,7 @@ class NewGame extends React.Component {
     }).then(response => {
       if (response.ok) {
         this.setState({ errMessage: '' });
-        // this.props.onGameCreated();
+        this.props.onModalClose();
       } else {
         if (response.status === 403) {
           // this.setState({
