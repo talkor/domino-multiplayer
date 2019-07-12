@@ -1,6 +1,7 @@
 import React from 'react';
-import UserListItem from './UserListItem.jsx';
+import UserListItem from '../UserListItem/UserListItem.jsx';
 import './UserList.css';
+
 class UserList extends React.Component {
   constructor(props) {
     super(props);

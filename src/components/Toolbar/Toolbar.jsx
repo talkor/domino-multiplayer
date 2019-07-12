@@ -1,5 +1,5 @@
 import React from 'react';
-import Timer from './Timer.jsx';
+import Timer from '../Timer/Timer.jsx';
 import './Toolbar.css';
 
 const Toolbar = props => {

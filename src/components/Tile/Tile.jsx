@@ -1,6 +1,6 @@
 import React from 'react';
 import './Tile.css';
-import { tilesMap } from '../TilesMap.js';
+import { tilesMap } from '../../TilesMap.js';
 
 const Tile = props => {
   const renderedClasses = `tile ${props.rotated ? 'rotated' : ''} ${
@@ -12,7 +12,7 @@ const Tile = props => {
   return (
     <div
       className={renderedClasses}
-      onClick={e => props.onTileClick(e, props.placed)}
+      onClick={event => props.onTileClick(event, props.placed)}
       data-tile={props.tile}
       id={props.id}
     >

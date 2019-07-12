@@ -1,8 +1,8 @@
 import React from 'react';
-import PlayerStack from '../PlayerStack.jsx';
-import Board from './Board.jsx';
-import Stock from '../Stock.jsx';
-import Toolbar from '../Toolbar.jsx';
+import PlayerStack from '../PlayerStack/PlayerStack.jsx';
+import Board from '../Board/Board.jsx';
+import Stock from '../Stock/Stock.jsx';
+import Toolbar from '../Toolbar/Toolbar.jsx';
 import { tilesMap } from '../../TilesMap';
 import './Game.css';
 

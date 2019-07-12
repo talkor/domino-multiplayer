@@ -3,7 +3,10 @@ import './GameListItem.css';
 
 const GameListItem = props => {
   return (
-    <li className={`game-list-item ${props.active ? 'active' : ''}`}>
+    <li
+      className={`game-list-item ${props.active ? 'active' : ''}`}
+      onClick={event => props.onGameClick(event, props.game.id)}
+    >
       <h2>{props.game.title}</h2>
       <span className="label label-user">{props.game.createdBy}</span>
       <span className="label label-players">

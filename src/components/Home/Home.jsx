@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './Login/Login.jsx';
-import Loby from './Loby.jsx';
+import Login from '../Login/Login.jsx';
+import Loby from '../Loby/Loby.jsx';
 
 class Home extends React.Component {
   constructor(props) {
