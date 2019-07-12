@@ -27,6 +27,15 @@ router.post('/new', auth.userAuthentication, (req, res) => {
     players: [],
     gameTiles: new Array(NUM_TILES).fill(0).map((_, index) => index)
   };
+
+  const gameTitle = game.title;
+  for (let i = 0; i < games.length; i++) {
+    if (games[i].title == gameTitle) {
+      res.sendStatus(403);
+      return;
+    }
+  }
+
   games.push(game);
   res.sendStatus(200);
 });

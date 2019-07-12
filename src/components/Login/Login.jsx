@@ -20,7 +20,13 @@ class Login extends React.Component {
         <h2>Welcome!</h2>
         <div className="login-form">
           <form onSubmit={this.onUserLogin.bind(this)}>
-            <input name="username" placeholder="Enter your name" />
+            <input
+              name="username"
+              placeholder="Enter your name"
+              ref={input => {
+                this.nameInput = input;
+              }}
+            />
             <Button
               value="login"
               buttonType="login"
@@ -32,6 +38,10 @@ class Login extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.nameInput.focus();
   }
 
   renderErrorMessage() {

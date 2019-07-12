@@ -27,6 +27,9 @@ class NewGame extends React.Component {
               type="text"
               placeholder="Game Title"
               onChange={() => this.setState({ errorMessage: '' })}
+              ref={input => {
+                this.titleInput = input;
+              }}
             />
             {this.renderErrorMessage()}
             <span className="form-title">Players</span>
@@ -46,6 +49,10 @@ class NewGame extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.titleInput.focus();
   }
 
   renderErrorMessage() {
