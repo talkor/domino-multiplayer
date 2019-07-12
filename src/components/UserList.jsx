@@ -26,7 +26,11 @@ class UserList extends React.Component {
         <h2>Online Players</h2>
         <ul>
           {this.state.users.map((user, index) => (
-            <UserListItem user={user} key={index} color />
+            <UserListItem
+              user={user}
+              key={index}
+              color={this.generateUserColor(user.name)}
+            />
           ))}
         </ul>
       </div>
@@ -48,6 +52,15 @@ class UserList extends React.Component {
       .catch(err => {
         throw err;
       });
+  }
+
+  generateUserColor(name) {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    return 'hsl(' + (hash % 360) + ', ' + 30 + '%, ' + 80 + '%)';
   }
 }
 
