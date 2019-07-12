@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button.jsx';
 import './NewGame.css';
 
 class NewGame extends React.Component {
@@ -33,9 +34,11 @@ class NewGame extends React.Component {
 
             <input type="radio" name="numPlayers" value="3" />
             <span> 3 Players</span>
-            <button value="login" className="game-button new-game-button">
-              Create
-            </button>
+            <Button
+              buttonType="new-game-form"
+              name="Create Game"
+              type="submit"
+            />
           </form>
         </div>
       </div>

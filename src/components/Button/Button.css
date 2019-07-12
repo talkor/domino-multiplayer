@@ -1,0 +1,44 @@
+.game-button {
+  border-radius: 20px;
+  background-color: rgb(5, 117, 230, 0.9);
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 0 0 0 5px;
+  border: none;
+}
+
+.game-button:hover {
+  background-color: rgb(5, 117, 230, 1);
+}
+
+.game-button:focus {
+  outline: 0;
+}
+
+.game-button.login {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+}
+
+.game-button.new-game-form {
+  display: block;
+  margin: 20px auto;
+}
+
+@media (max-width: 805px) {
+  .game-button {
+    padding: 4px, 7.5px;
+    margin: 4px;
+    font-size: 75%;
+  }
+}
+
+@media (max-width: 602px) {
+  .game-button {
+    padding: 2.5px, 5px;
+    margin: 2.5px;
+    font-size: 50%;
+  }
+}

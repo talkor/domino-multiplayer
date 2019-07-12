@@ -42,16 +42,6 @@
   outline: 0 none;
 }
 
-.new-game-button {
-  background-color: rgb(5, 117, 230, 0.9);
-  display: block;
-  margin: 20px auto;
-}
-
-.new-game-button:hover {
-  background-color: rgb(5, 117, 230, 1);
-}
-
 .error-message {
   color: rgb(243, 0, 0);
 }

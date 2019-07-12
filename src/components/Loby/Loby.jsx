@@ -2,6 +2,7 @@ import React from 'react';
 import GameList from '../GameList/GameList.jsx';
 import UserList from '../UserList/UserList.jsx';
 import Game from '../Game/Game.jsx';
+import Button from '../Button/Button.jsx';
 import NewGame from '../NewGame/NewGame.jsx';
 
 import './Loby.css';
@@ -20,15 +21,16 @@ class Loby extends React.Component {
     return (
       <div>
         Hello {this.props.user.name}
-        <button
-          className="game-button"
+        <Button
+          buttonType="logout"
+          name="Logout"
           onClick={this.props.onUserLoghout.bind(this)}
-        >
-          Logout
-        </button>
-        <button className="game-button" onClick={this.onNewGame.bind(this)}>
-          New Game
-        </button>
+        />
+        <Button
+          buttonType="new-game"
+          name="New Game"
+          onClick={this.onNewGame.bind(this)}
+        />
         <React.Fragment>
           {this.state.showGame ? (
             <Game />

@@ -1,0 +1,102 @@
+.domino-effect {
+  display: flex;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.domino-effect .tile {
+  margin: 50px;
+}
+
+.domino-effect .tile {
+  width: 40px;
+  height: 80px;
+}
+
+.domino-effect .tile .side-a,
+.domino-effect .tile .side-b {
+  height: 40px;
+  width: 40px;
+}
+
+.domino-effect .tile .dot {
+  width: 8px;
+  height: 8px;
+}
+
+.domino-effect .tile {
+  animation-name: stretch;
+  animation-duration: 10s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+  animation-play-state: running;
+}
+
+.domino-effect .tile:nth-of-type(1) {
+  animation-name: bounceInLeft;
+}
+
+.domino-effect .tile:nth-of-type(3) {
+  animation-name: rotateInUpLeft;
+}
+
+@keyframes stretch {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.2) rotate(360deg);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes rotateInUpLeft {
+  from {
+    transform-origin: left bottom;
+    transform: rotate3d(0, 0, 1, 45deg) scale(1.2);
+    opacity: 0;
+  }
+
+  to {
+    transform-origin: left bottom;
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceInLeft {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(-100px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(20px, 0, 0);
+  }
+
+  75% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 50px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 50px, 0);
+  }
+}

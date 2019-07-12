@@ -1,5 +1,6 @@
 import React from 'react';
 import Timer from '../Timer/Timer.jsx';
+import Button from '../Button/Button.jsx';
 import './Toolbar.css';
 
 const Toolbar = props => {
@@ -14,24 +15,18 @@ const Toolbar = props => {
         {props.isGameOver ? (
           ''
         ) : (
-          <button onClick={props.onUndoClick} className="game-button undo">
-            Undo
-          </button>
+          <Button buttonType="undo" name="Undo" onClick={props.onUndoClick} />
         )}
-        <button onClick={props.onNewGameClick} className="game-button new">
-          New Game
-        </button>
+        <Button
+          buttonType="new"
+          name="New Game"
+          onClick={props.onNewGameClick}
+        />
         {props.isGameOver ? (
-          <button onClick={props.onPrevClick} className="game-button prev">
-            Prev
-          </button>
-        ) : (
-          ''
-        )}
-        {props.isGameOver ? (
-          <button onClick={props.onNextClick} className="game-button next">
-            Next
-          </button>
+          <React.Fragment>
+            <Button buttonType="prev" name="Prev" onClick={props.onPrevClick} />
+            <Button buttonType="next" name="Next" onClick={props.onNextClick} />
+          </React.Fragment>
         ) : (
           ''
         )}

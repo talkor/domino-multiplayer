@@ -2,6 +2,10 @@ h1 {
   text-align: center;
 }
 
+.login h2 {
+  text-align: center;
+}
+
 .login-form {
   text-align: center;
 }
@@ -16,29 +20,4 @@ h1 {
 .login-form input:focus {
   border: 1px solid rgb(5, 117, 230, 0.7);
   outline: 0 none;
-}
-
-.game-button {
-  margin: 5px;
-  border: 1px solid rgb(255, 255, 255, 0.5);
-  border-radius: 20px;
-  background-color: rgb(5, 117, 230, 0);
-  color: #fff;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.game-button:focus {
-  outline: 0;
-}
-
-.game-button:hover {
-  background-color: rgb(5, 117, 230, 0.3);
-}
-
-/* TODO: Extract button css to component */
-.login-button {
-  display: block;
-  width: 100px;
-  margin: 10px auto;
 }

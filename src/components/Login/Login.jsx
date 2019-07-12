@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '../Button/Button.jsx';
+import DominoEffect from '../DominoEffect/DominoEffect.jsx';
 import './Login.css';
 
 class Login extends React.Component {
@@ -12,18 +14,23 @@ class Login extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="login">
         <h1>Domino</h1>
+        <DominoEffect />
+        <h2>Welcome!</h2>
         <div className="login-form">
           <form onSubmit={this.onUserLogin.bind(this)}>
             <input name="username" placeholder="Enter your name" />
-            <button value="login" className="game-button login-button">
-              Login
-            </button>
+            <Button
+              value="login"
+              buttonType="login"
+              name="Login"
+              type="sumbit"
+            />
           </form>
           {this.renderErrorMessage()}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 

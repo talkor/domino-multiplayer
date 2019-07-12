@@ -3,23 +3,10 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-}
-
-.game-button {
-  border: 1px solid rgb(255, 255, 255, 0.5);
+  background-color: #fff;
   border-radius: 20px;
-  background-color: rgb(5, 117, 230, 0);
-  color: #fff;
   padding: 5px 10px;
-  cursor: pointer;
-}
-
-.game-button:focus {
-  outline: 0;
-}
-
-.game-button:hover {
-  background-color: rgb(5, 117, 230, 0.3);
+  margin: 10px 0;
 }
 
 .ui-message {
@@ -63,23 +50,11 @@
     width: 75%;
     font-size: 75%;
   }
-
-  .game-button {
-    padding: 4px, 7.5px;
-    margin: 4px;
-    font-size: 75%;
-  }
 }
 
 @media (max-width: 602px) {
   .toolbar {
     width: 50%;
-    font-size: 50%;
-  }
-
-  .game-button {
-    padding: 2.5px, 5px;
-    margin: 2.5px;
     font-size: 50%;
   }
 }
