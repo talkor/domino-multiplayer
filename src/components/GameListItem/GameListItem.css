@@ -1,10 +1,10 @@
 .game-list-item {
   list-style: none;
-  border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 20px;
   padding: 10px;
   margin-bottom: 5px;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .game-list-item:hover {

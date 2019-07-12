@@ -1,5 +1,6 @@
 import React from 'react';
 import GameListItem from '../GameListItem/GameListItem.jsx';
+import './GameList.css';
 
 class GameList extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class GameList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="game-list-container">
         <h2>Games</h2>
         <ul>
           {this.state.games.map((game, index) => (

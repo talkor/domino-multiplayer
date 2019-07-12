@@ -1,6 +1,6 @@
 import React from 'react';
 import UserListItem from './UserListItem.jsx';
-
+import './UserList.css';
 class UserList extends React.Component {
   constructor(props) {
     super(props);
@@ -22,16 +22,14 @@ class UserList extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="user-list-container">
-          <h2>Online Players</h2>
-          <ul>
-            {this.state.users.map((user, index) => (
-              <UserListItem user={user} key={index} color />
-            ))}
-          </ul>
-        </div>
-      </React.Fragment>
+      <div className="user-list-container">
+        <h2>Online Players</h2>
+        <ul>
+          {this.state.users.map((user, index) => (
+            <UserListItem user={user} key={index} color />
+          ))}
+        </ul>
+      </div>
     );
   }
 
