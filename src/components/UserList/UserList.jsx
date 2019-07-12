@@ -61,7 +61,7 @@ class UserList extends React.Component {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    return 'hsl(' + (hash % 360) + ', ' + 30 + '%, ' + 80 + '%)';
+    return 'hsl(' + (hash % 360) + ', ' + 50 + '%, ' + 60 + '%)';
   }
 }
 

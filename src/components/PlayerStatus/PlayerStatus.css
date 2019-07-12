@@ -1,0 +1,26 @@
+.player-status {
+  display: flex;
+  background-color: #fff;
+  border-radius: 20px;
+  flex: 1;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-right: 10px;
+}
+
+.player-status:last-child {
+  margin-right: 0;
+}
+
+.player-status.current-player {
+  border: 2px solid #000;
+}
+
+.tiny-tile {
+  width: 5px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin: 0 1px;
+  display: inline-block;
+  border-radius: 2px;
+}

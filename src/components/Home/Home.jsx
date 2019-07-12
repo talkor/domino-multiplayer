@@ -50,7 +50,7 @@ class Home extends React.Component {
       })
       .catch(err => {
         if (err.status === 401) {
-          // incase we're getting 'unautorithed' as response
+          // In case we're getting 'unautorithed' as response
           this.setState({ showLogin: true });
         } else {
           throw err;

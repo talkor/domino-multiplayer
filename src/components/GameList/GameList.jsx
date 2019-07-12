@@ -1,5 +1,7 @@
 import React from 'react';
 import GameListItem from '../GameListItem/GameListItem.jsx';
+import NewGame from '../NewGame/NewGame.jsx';
+import Button from '../Button/Button.jsx';
 import './GameList.css';
 
 class GameList extends React.Component {
@@ -7,7 +9,8 @@ class GameList extends React.Component {
     super(props);
 
     this.state = {
-      games: []
+      games: [],
+      showNewGame: false
     };
   }
 
@@ -23,18 +26,33 @@ class GameList extends React.Component {
 
   render() {
     return (
-      <div className="game-list-container">
-        <h2>Games</h2>
-        <ul>
-          {this.state.games.map((game, index) => (
-            <GameListItem
-              game={game}
-              key={index}
-              onGameClick={this.props.onGameClick}
+      <React.Fragment>
+        <div className="game-list-container">
+          <div className="game-list-header">
+            <h2>Games</h2>
+            <Button
+              buttonType="new-game"
+              name="Create a New Game"
+              onClick={this.onCreateGame.bind(this)}
             />
-          ))}
-        </ul>
-      </div>
+          </div>
+          <ul>
+            {this.state.games.map((game, index) => (
+              <GameListItem
+                game={game}
+                key={index}
+                onGameClick={this.props.onGameClick}
+              />
+            ))}
+          </ul>
+        </div>
+        {this.state.showNewGame && (
+          <NewGame
+            // onGameCreated={this.onGameCreated.bind(this)}
+            onModalClose={this.onModalClose.bind(this)}
+          />
+        )}
+      </React.Fragment>
     );
   }
 
@@ -53,6 +71,14 @@ class GameList extends React.Component {
       .catch(err => {
         throw err;
       });
+  }
+
+  onCreateGame() {
+    this.setState({ showNewGame: true });
+  }
+
+  onModalClose() {
+    this.setState({ showNewGame: false });
   }
 }
 

@@ -17,9 +17,11 @@ class NewGame extends React.Component {
       <div className="new-game-modal">
         <div className="new-game-modal-main">
           <a href="#" className="close" onClick={this.props.onModalClose} />
-          <h1>Start a New Game</h1>
+          <h1>Cretae a New Game</h1>
           <form onSubmit={this.onNewGame.bind(this)}>
-            <label htmlFor="title">Game Title</label>
+            <label className="form-title" htmlFor="title">
+              Game Title
+            </label>
             <input
               name="title"
               type="text"
@@ -27,13 +29,14 @@ class NewGame extends React.Component {
               onChange={() => this.setState({ errorMessage: '' })}
             />
             {this.renderErrorMessage()}
-
-            <label htmlFor="numPlayers">Players</label>
-            <input defaultChecked type="radio" name="numPlayers" value="2" />
-            <span> 2 Players </span>
-
-            <input type="radio" name="numPlayers" value="3" />
-            <span> 3 Players</span>
+            <span className="form-title">Players</span>
+            <label>
+              <input defaultChecked type="radio" name="numPlayers" value="2" />{' '}
+              2 Players
+            </label>{' '}
+            <label>
+              <input type="radio" name="numPlayers" value="3" /> 3 Players
+            </label>
             <Button
               buttonType="new-game-form"
               name="Create Game"
@@ -62,7 +65,7 @@ class NewGame extends React.Component {
 
     const game = {
       title,
-      numPlayers: event.target.elements.numPlayers.value
+      numPlayers: parseInt(event.target.elements.numPlayers.value, 10)
     };
     fetch('/games/new', {
       method: 'POST',

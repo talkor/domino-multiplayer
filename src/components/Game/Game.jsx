@@ -2,7 +2,7 @@ import React from 'react';
 import PlayerStack from '../PlayerStack/PlayerStack.jsx';
 import Board from '../Board/Board.jsx';
 import Stock from '../Stock/Stock.jsx';
-import Toolbar from '../Toolbar/Toolbar.jsx';
+import GameToolbar from '../GameToolbar/GameToolbar.jsx';
 import { tilesMap } from '../../TilesMap';
 import './Game.css';
 
@@ -10,7 +10,6 @@ const NUM_STACK = 6;
 const NUM_TILES = 28;
 const BOARD_SIZE = 784;
 const MIDDLE_TILE = 406;
-
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +41,7 @@ class Game extends React.Component {
   render() {
     return (
       <div>
-        <Toolbar
+        <GameToolbar
           stats={this.state.stats}
           uiMessage={this.state.uiMessage}
           elapsedSeconds={this.state.elapsedSeconds}

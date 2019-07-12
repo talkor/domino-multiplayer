@@ -1,3 +1,13 @@
 .game-list-container {
   flex: 3;
 }
+
+.game-list-header {
+  display: flex;
+  align-items: center;
+}
+
+.game-list-header .game-button {
+  height: 100%;
+  margin-left: 10px;
+}

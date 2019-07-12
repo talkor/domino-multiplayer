@@ -16,9 +16,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 20px;
 }
 
-.new-game-modal-main label {
+.new-game-modal-main .form-title {
   display: block;
   margin: 15px 0 5px 0;
   font-weight: bold;

@@ -15,7 +15,11 @@ const GameListItem = props => {
       {props.game.active ? (
         <span className="label label-active">Game In Progress</span>
       ) : (
-        <span className="label label-waiting">Waiting For Players</span>
+        <span className="label label-waiting">
+          Waiting For {props.game.numPlayers - props.game.players.length} More
+          Player
+          {props.game.numPlayers - props.game.players.length === 1 ? '' : 's'}
+        </span>
       )}
       {!props.game.active && (
         <svg className="arrow" viewBox="0 0 8 8">

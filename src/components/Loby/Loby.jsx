@@ -26,11 +26,6 @@ class Loby extends React.Component {
           name="Logout"
           onClick={this.props.onUserLoghout.bind(this)}
         />
-        <Button
-          buttonType="new-game"
-          name="New Game"
-          onClick={this.onNewGame.bind(this)}
-        />
         <React.Fragment>
           {this.state.showGame ? (
             <Game />
@@ -38,12 +33,6 @@ class Loby extends React.Component {
             <div className="lists-container">
               <GameList onGameClick={this.onGameClick.bind(this)} />
               <UserList />
-              {this.state.showNewGame && (
-                <NewGame
-                  // onGameCreated={this.onGameCreated.bind(this)}
-                  onModalClose={this.onModalClose.bind(this)}
-                />
-              )}
             </div>
           )}
         </React.Fragment>
@@ -54,14 +43,6 @@ class Loby extends React.Component {
   onGameClick(event, id) {
     console.log(id, event);
     this.setState({ showGame: true });
-  }
-
-  onNewGame() {
-    this.setState({ showNewGame: true });
-  }
-
-  onModalClose() {
-    this.setState({ showNewGame: false });
   }
 }
 
