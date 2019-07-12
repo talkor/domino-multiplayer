@@ -67,6 +67,7 @@ class NewGame extends React.Component {
       title,
       numPlayers: parseInt(event.target.elements.numPlayers.value, 10)
     };
+
     fetch('/games/new', {
       method: 'POST',
       body: JSON.stringify(game),

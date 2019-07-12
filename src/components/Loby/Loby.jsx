@@ -13,7 +13,8 @@ class Loby extends React.Component {
 
     this.state = {
       showNewGame: false,
-      showGame: false
+      showGame: false,
+      id: 0
     };
   }
 
@@ -28,7 +29,7 @@ class Loby extends React.Component {
         />
         <React.Fragment>
           {this.state.showGame ? (
-            <Game />
+            <Game id={this.state.id} />
           ) : (
             <div className="lists-container">
               <GameList onGameClick={this.onGameClick.bind(this)} />
@@ -41,8 +42,20 @@ class Loby extends React.Component {
   }
 
   onGameClick(event, id) {
-    console.log(id, event);
-    this.setState({ showGame: true });
+    return fetch(`/games/${id}/join`, { method: 'GET', credentials: 'include' })
+      .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        console.log(response);
+        return response;
+      })
+      .then(() => {
+        this.setState({ showGame: true, id });
+      })
+      .catch(err => {
+        throw err;
+      });
   }
 }
 

@@ -4,7 +4,7 @@ import './GameListItem.css';
 const GameListItem = props => {
   return (
     <li
-      className={`game-list-item ${props.active ? 'active' : ''}`}
+      className={`game-list-item ${props.game.active ? 'active' : ''}`}
       onClick={event => props.onGameClick(event, props.game.id)}
     >
       <h2>{props.game.title}</h2>

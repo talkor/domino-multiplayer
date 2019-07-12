@@ -21,6 +21,10 @@
   transform: none;
 }
 
+.game-list-item.active:hover {
+  transform: none;
+}
+
 .game-list-item > h2 {
   margin: 5px 0 10px 0;
 }

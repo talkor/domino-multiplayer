@@ -10,17 +10,16 @@ const NUM_STACK = 6;
 const NUM_TILES = 28;
 const BOARD_SIZE = 784;
 const MIDDLE_TILE = 406;
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       gameTiles: [],
+      players: [],
       playerTiles: [],
       boardTiles: [],
       selectedTile: -1,
-      turns: [],
-      currentTurn: 0,
-      maxTurn: 0,
       elapsedSeconds: 0,
       isGameOver: false,
       uiMessage: {
@@ -46,10 +45,8 @@ class Game extends React.Component {
           uiMessage={this.state.uiMessage}
           elapsedSeconds={this.state.elapsedSeconds}
           isGameOver={this.state.isGameOver}
-          onPrevClick={() => this.onTurnHistoryClick('prev')}
-          onNextClick={() => this.onTurnHistoryClick('next')}
-          onUndoClick={() => this.onUndoClick()}
           onNewGameClick={() => this.onNewGameClick()}
+          players={this.state.players}
         />
         <Board
           boardTiles={this.state.boardTiles}
@@ -76,66 +73,48 @@ class Game extends React.Component {
   }
 
   async componentDidMount() {
-    await this.generatePlayerTiles();
+    await this.getGameData();
     await this.generateBoardTiles();
-    await this.saveTurn();
 
     this.showUiMessage('Game started', { type: 'info' });
     this.initTimer();
   }
 
+  startGame() {}
+
+  getGameData() {
+    return fetch(`/games/${this.props.id}`, {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        this.timeoutId = setTimeout(this.getGameData.bind(this), 500);
+        return response.json();
+      })
+      .then(gameData => {
+        this.setState(() => ({ ...gameData, stats: this.state.stats }));
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+
   componentWillUnmount() {
     this.stopTimer();
-  }
-
-  onTurnHistoryClick(direction) {
-    let { currentTurn, turns, maxTurn } = this.state;
-
-    if (direction === 'next' && currentTurn < maxTurn) {
-      currentTurn = currentTurn + 1;
-    } else if (direction === 'prev' && currentTurn > 0) {
-      currentTurn = currentTurn - 1;
-    }
-
-    this.setState({
-      currentTurn,
-      playerTiles: turns[currentTurn].playerTiles,
-      boardTiles: turns[currentTurn].boardTiles,
-      stats: turns[currentTurn].stats,
-      gameTiles: turns[currentTurn].playerTiles
-    });
-  }
-
-  onUndoClick() {
-    const { currentTurn, turns } = this.state;
-
-    if (currentTurn > 0) {
-      const newCurrentTurn = currentTurn - 1;
-      const newTurns = [...turns];
-      newTurns.pop();
-
-      this.setState({
-        currentTurn: newCurrentTurn,
-        turns: newTurns,
-        maxTurn: newCurrentTurn,
-        playerTiles: turns[newCurrentTurn].playerTiles,
-        boardTiles: turns[newCurrentTurn].boardTiles,
-        stats: turns[newCurrentTurn].stats,
-        gameTiles: turns[newCurrentTurn].gameTiles
-      });
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
     }
   }
 
   async onNewGameClick() {
-    await this.generatePlayerTiles();
     await this.generateBoardTiles();
     await this.saveTurn();
 
     this.showUiMessage('New game started', { type: 'info' });
     this.setState({
-      currentTurn: 0,
-      turns: [],
-      maxTurn: 0,
       elapsedSeconds: 0,
       isGameOver: false,
       stats: {
@@ -148,57 +127,6 @@ class Game extends React.Component {
     });
     this.stopTimer();
     this.initTimer();
-  }
-
-  generatePlayerTiles() {
-    const gameTiles = new Array(NUM_TILES).fill(0).map((_, index) => index);
-    const playerTiles = [];
-
-    Array(NUM_STACK)
-      .fill('')
-      .map(() => {
-        const randomIndex = Math.floor(
-          Math.random() * Math.floor(gameTiles.length)
-        );
-
-        playerTiles.push(gameTiles[randomIndex]);
-        gameTiles.splice(randomIndex, 1);
-      });
-
-    const score = playerTiles.reduce(
-      (sum, value) => sum + tilesMap[value].a + tilesMap[value].b,
-      0
-    );
-
-    this.setState({
-      playerTiles,
-      gameTiles,
-      stats: {
-        ...this.state.stats,
-        score
-      }
-    });
-  }
-
-  saveTurn() {
-    const {
-      playerTiles,
-      boardTiles,
-      stats,
-      elapsedSeconds,
-      turns,
-      gameTiles
-    } = this.state;
-
-    turns.push({
-      playerTiles: [...playerTiles],
-      boardTiles: [...boardTiles],
-      gameTiles: [...gameTiles],
-      stats,
-      elapsedSeconds
-    });
-
-    this.setState({ turns });
   }
 
   generateBoardTiles() {
@@ -398,7 +326,6 @@ class Game extends React.Component {
 
   async makeTurn({ method }) {
     const { numTurns, stockWithdrawals, turnTime } = this.state.stats;
-    const { currentTurn } = this.state;
 
     const timeDifference =
       this.state.elapsedSeconds - turnTime[turnTime.length - 1];
@@ -423,18 +350,24 @@ class Game extends React.Component {
     };
 
     await this.setState({
-      currentTurn: currentTurn + 1,
-      maxTurn: currentTurn + 1,
       stats
     });
-
-    await this.saveTurn();
 
     // Check game over
     const isGameOver = this.isGameOver();
     if (isGameOver.result) {
       this.onGameOver(isGameOver.winner);
     }
+
+    await fetch(`/games/${this.state.id}/update`, {
+      method: 'POST',
+      body: JSON.stringify({ playerTiles: this.state.playerTiles }),
+      credentials: 'include'
+    }).then(response => {
+      if (response.ok) {
+      }
+    });
+    return false;
   }
 
   isGameOver() {

@@ -41,7 +41,7 @@ class GameList extends React.Component {
               <GameListItem
                 game={game}
                 key={index}
-                onGameClick={this.props.onGameClick}
+                onGameClick={game.active ? () => {} : this.props.onGameClick}
               />
             ))}
           </ul>
