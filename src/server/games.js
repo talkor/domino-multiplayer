@@ -13,9 +13,17 @@ router.get('/all', auth.userAuthentication, (req, res) => {
 });
 
 router.post('/new', auth.userAuthentication, (req, res) => {
-  const game = req.body;
-  // const userInfo = auth.getUserInfo(req.session.id);
-  games.push(JSON.parse(game));
+  const createdBy = auth.getUserInfo(req.session.id).name;
+  const game = {
+    id: Math.random()
+      .toString(36)
+      .substr(2, 9),
+    ...JSON.parse(req.body),
+    active: false,
+    createdBy,
+    players: [createdBy]
+  };
+  games.push(game);
   res.sendStatus(200);
 });
 

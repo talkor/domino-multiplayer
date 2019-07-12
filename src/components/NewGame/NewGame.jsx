@@ -72,7 +72,7 @@ class NewGame extends React.Component {
       } else {
         if (response.status === 403) {
           this.setState({
-            errorMessage: 'Game title already exist, please try another one'
+            errorMessage: 'Game title already exists, please try another one'
           });
         }
         // this.props.loginErrorHandler();
