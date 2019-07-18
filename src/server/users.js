@@ -34,6 +34,14 @@ router.post('/join/:id', auth.userAuthentication, (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/leave/:id', auth.userAuthentication, (req, res) => {
+  const userInfo = auth.getUserInfo(req.session.id);
+  users.forEach(user => {
+    if (user.name === userInfo.name) user.playing = '';
+  });
+  res.sendStatus(200);
+});
+
 router.get('/logout', [
   (req, res, next) => {
     const userInfo = auth.getUserInfo(req.session.id);

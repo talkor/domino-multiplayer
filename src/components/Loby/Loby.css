@@ -8,15 +8,24 @@
   margin: 0 10px 0 0;
 }
 
+.loby-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.loby-header .game-button {
+  align-self: flex-end;
+}
+
 @media (max-width: 805px) {
-  .lists-container { 
+  .lists-container {
     max-width: 75%;
     max-height: 75%;
   }
 }
 
 @media (max-width: 602px) {
-  .lists-container { 
+  .lists-container {
     max-width: 50%;
     max-height: 50%;
   }

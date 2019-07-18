@@ -31,6 +31,8 @@ class Game extends React.Component {
         score: 0
       }
     };
+
+    this.getGameData();
   }
 
   render() {
@@ -72,7 +74,7 @@ class Game extends React.Component {
   }
 
   async componentDidMount() {
-    await this.getGameData();
+    // await this.getGameData();
   }
 
   getGameData() {

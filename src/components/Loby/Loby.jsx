@@ -20,13 +20,28 @@ class Loby extends React.Component {
 
   render() {
     return (
-      <div>
-        Hello {this.props.user.name}
-        <Button
-          buttonType="logout"
-          name="Logout"
-          onClick={this.props.onUserLoghout.bind(this)}
-        />
+      <React.Fragment>
+        <div className="loby-header">
+          Hello {this.props.user.name}
+          {!this.state.showGame ? (
+            <Button
+              buttonType="logout"
+              name="Logout"
+              onClick={this.props.onUserLoghout.bind(this)}
+            />
+          ) : (
+            ''
+          )}
+          {this.state.id ? (
+            <Button
+              buttonType="leaveGame"
+              name="Back To Loby"
+              onClick={this.onLeaveGame.bind(this)}
+            />
+          ) : (
+            ''
+          )}
+        </div>
         <React.Fragment>
           {this.state.showGame ? (
             <Game id={this.state.id} />
@@ -37,7 +52,7 @@ class Loby extends React.Component {
             </div>
           )}
         </React.Fragment>
-      </div>
+      </React.Fragment>
     );
   }
 
@@ -89,6 +104,36 @@ class Loby extends React.Component {
       .catch(err => {
         throw err;
       });
+  }
+
+  onLeaveGame() {
+    fetch(`/users/leave/${this.state.id}`, {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        console.log(response);
+        return response;
+      })
+      .then(() => {
+        this.setState({ showGame: false, id: 0 });
+      })
+      .catch(err => {
+        throw err;
+      });
+
+    fetch(`/games/${this.state.id}/leave`, {
+      method: 'GET',
+      credentials: 'include'
+    }).then(response => {
+      if (!response.ok) {
+        console.log(response);
+      }
+      // this.setState({ currentUser: { name: '' }, showLogin: true });
+    });
   }
 }
 

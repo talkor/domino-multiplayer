@@ -91,6 +91,17 @@ router.get('/:id/join', auth.userAuthentication, (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/:id/leave', auth.userAuthentication, (req, res) => {
+  const userName = auth.getUserInfo(req.session.id).name;
+  const currentGame = games.find(game => game.id === req.params.id);
+
+  const playerIndex = currentGame.players.forEach((player, index) => {
+    if (player.userName === userName) return index;
+  });
+  currentGame.players.splice(playerIndex, 1);
+  res.sendStatus(200);
+});
+
 router.post('/:id/update', auth.userAuthentication, (req, res) => {
   let currentGame = games.find(game => game.id === req.params.id);
   const userName = auth.getUserInfo(req.session.id).name;
