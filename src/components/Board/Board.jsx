@@ -10,24 +10,25 @@ const Board = props => {
 
   return (
     <div className="board">
-      {props.boardTiles.map(tile => (
-        <React.Fragment key={tile.id}>
-          {tile.rendered ? (
-            <Tile
-              tile={tile.tile}
-              placeholder={tile.placeholder}
-              placed={tile.placed}
-              onTileClick={handleTilePlace}
-              rotated={tile.rotated}
-              reversed={tile.reversed}
-              id={tile.id}
-              rendered={tile.rendered}
-            />
-          ) : (
-            <div className="board-placeholder" />
-          )}
-        </React.Fragment>
-      ))}
+      {props.boardTiles &&
+        props.boardTiles.map(tile => (
+          <React.Fragment key={tile.id}>
+            {tile.rendered ? (
+              <Tile
+                tile={tile.tile}
+                placeholder={tile.placeholder}
+                placed={tile.placed}
+                onTileClick={handleTilePlace}
+                rotated={tile.rotated}
+                reversed={tile.reversed}
+                id={tile.id}
+                rendered={tile.rendered}
+              />
+            ) : (
+              <div className="board-placeholder" />
+            )}
+          </React.Fragment>
+        ))}
     </div>
   );
 };

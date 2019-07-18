@@ -13,7 +13,8 @@ const PlayerStack = props => {
 
   return (
     <div className="player-stack">
-      {props.playerTiles &&
+      {props.visible &&
+        props.playerTiles &&
         props.playerTiles.map((tile, key) => {
           return (
             <Tile

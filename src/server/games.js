@@ -5,6 +5,8 @@ const tilesMap = require('./TilesMap.js');
 
 const NUM_TILES = 28;
 const NUM_STACK = 5;
+const BOARD_SIZE = 784;
+const MIDDLE_TILE = 406;
 const games = [];
 
 const router = express.Router();
@@ -25,7 +27,10 @@ router.post('/new', auth.userAuthentication, (req, res) => {
     active: false,
     createdBy,
     players: [],
-    gameTiles: new Array(NUM_TILES).fill(0).map((_, index) => index)
+    playing: false,
+    currentPlayer: 0,
+    gameTiles: new Array(NUM_TILES).fill(0).map((_, index) => index),
+    boardTiles: generateBoardTiles()
   };
 
   const gameTitle = game.title;
@@ -46,10 +51,15 @@ router.get('/:id', auth.userAuthentication, (req, res) => {
   const { playerTiles, stats } = currentGame.players.find(
     player => player.userName === user
   );
+
+  const gameObj = { ...games.find(game => game.id === req.params.id) };
   const gameData = {
-    ...games.find(game => game.id === req.params.id),
+    ...gameObj,
     playerTiles,
-    stats
+    boardTiles: currentGame.boardTiles,
+    stats,
+    active: gameObj.players.length === gameObj.numPlayers,
+    playing: gameObj.players[gameObj.currentPlayer].userName === user
   };
 
   res.json(gameData);
@@ -86,8 +96,13 @@ router.post('/:id/update', auth.userAuthentication, (req, res) => {
   const userName = auth.getUserInfo(req.session.id).name;
   const data = JSON.parse(req.body);
 
+  // TODO: Refactor
   currentGame.players.find(player => player.userName === userName).playerTiles =
     data.playerTiles;
+
+  currentGame.boardTiles = data.boardTiles;
+  currentGame.currentPlayer =
+    (currentGame.currentPlayer + 1) % currentGame.numPlayers;
 
   res.sendStatus(200);
 });
@@ -113,6 +128,24 @@ const generatePlayerTiles = id => {
     });
 
   return playerTiles;
+};
+
+const generateBoardTiles = () => {
+  const boardTiles = new Array(BOARD_SIZE).fill({}).map((_, index) => {
+    return {
+      id: index,
+      tile: 0,
+      placed: false,
+      placeholder: true,
+      rotated: true,
+      rendered: false
+    };
+  });
+
+  boardTiles[MIDDLE_TILE].rendered = true;
+  boardTiles[MIDDLE_TILE].isFirst = true;
+
+  return boardTiles;
 };
 
 module.exports = router;

@@ -18,7 +18,6 @@ class Game extends React.Component {
       gameTiles: [],
       players: [],
       playerTiles: [],
-      boardTiles: [],
       selectedTile: -1,
       elapsedSeconds: 0,
       isGameOver: false,
@@ -45,7 +44,7 @@ class Game extends React.Component {
           uiMessage={this.state.uiMessage}
           elapsedSeconds={this.state.elapsedSeconds}
           isGameOver={this.state.isGameOver}
-          onNewGameClick={() => this.onNewGameClick()}
+          // onNewGameClick={() => this.onNewGameClick()}
           players={this.state.players}
         />
         <Board
@@ -59,6 +58,7 @@ class Game extends React.Component {
             empty={this.state.gameTiles.length === 0}
             onStockWithdrawal={this.onStockWithdrawal.bind(this)}
             isGameOver={this.state.isGameOver}
+            visible={this.state.playing}
           />
           <PlayerStack
             playerTiles={this.state.playerTiles}
@@ -66,6 +66,7 @@ class Game extends React.Component {
             setSelectedTile={this.setSelectedTile.bind(this)}
             onTilePlace={this.onTilePlaced.bind(this)}
             isGameOver={this.state.isGameOver}
+            visible={this.state.playing}
           />
         </div>
       </div>
@@ -74,13 +75,7 @@ class Game extends React.Component {
 
   async componentDidMount() {
     await this.getGameData();
-    await this.generateBoardTiles();
-
-    this.showUiMessage('Game started', { type: 'info' });
-    this.initTimer();
   }
-
-  startGame() {}
 
   getGameData() {
     return fetch(`/games/${this.props.id}`, {
@@ -95,7 +90,19 @@ class Game extends React.Component {
         return response.json();
       })
       .then(gameData => {
-        this.setState(() => ({ ...gameData, stats: this.state.stats }));
+        const boardTiles = this.state.playing
+          ? this.state.boardTiles
+          : gameData.boardTiles;
+        this.setState(() => ({
+          ...gameData,
+          stats: this.state.stats,
+          boardTiles
+        }));
+        if (gameData.active) {
+          this.setState({ active: true });
+        } else {
+          this.setState({ active: false });
+        }
       })
       .catch(err => {
         throw err;
@@ -109,9 +116,14 @@ class Game extends React.Component {
     }
   }
 
-  async onNewGameClick() {
-    await this.generateBoardTiles();
-    await this.saveTurn();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.active !== this.state.active && this.state.active) {
+      this.startGame();
+    }
+  }
+
+  async startGame() {
+    // await this.generateBoardTiles();
 
     this.showUiMessage('New game started', { type: 'info' });
     this.setState({
@@ -130,23 +142,21 @@ class Game extends React.Component {
   }
 
   generateBoardTiles() {
-    const boardTiles = new Array(BOARD_SIZE).fill({}).map((_, index) => {
-      return {
-        id: index,
-        tile: 0,
-        placed: false,
-        placeholder: true,
-        rotated: true,
-        rendered: false
-      };
-    });
-
-    boardTiles[MIDDLE_TILE].rendered = true;
-    boardTiles[MIDDLE_TILE].isFirst = true;
-
-    this.setState({
-      boardTiles
-    });
+    // const boardTiles = new Array(BOARD_SIZE).fill({}).map((_, index) => {
+    //   return {
+    //     id: index,
+    //     tile: 0,
+    //     placed: false,
+    //     placeholder: true,
+    //     rotated: true,
+    //     rendered: false
+    //   };
+    // });
+    // boardTiles[MIDDLE_TILE].rendered = true;
+    // boardTiles[MIDDLE_TILE].isFirst = true;
+    // this.setState({
+    //   boardTiles
+    // });
   }
 
   async setSelectedTile(selectedTile) {
@@ -158,73 +168,74 @@ class Game extends React.Component {
     const { boardTiles, selectedTile } = this.state;
     const avaiablePositions = [];
 
-    boardTiles.map((tile, index) => {
-      if (tile.placed === true) {
-        // TODO: Handle doubles
+    boardTiles &&
+      boardTiles.map((tile, index) => {
+        if (tile.placed === true) {
+          // TODO: Handle doubles
 
-        const sideA = tile.reversed ? 'b' : 'a';
-        const sideB = tile.reversed ? 'a' : 'b';
-        if (tilesMap[tile.tile][sideA] === tilesMap[selectedTile].a) {
-          avaiablePositions.push({
-            position: index - 1,
-            reversed: true,
-            double: tilesMap[selectedTile].double
-          });
-        }
-        if (tilesMap[tile.tile][sideA] === tilesMap[selectedTile].b) {
-          avaiablePositions.push({
-            position: index - 1,
-            reversed: false,
-            double: tilesMap[selectedTile].double
-          });
-        }
-        if (tilesMap[tile.tile][sideB] === tilesMap[selectedTile].a) {
-          avaiablePositions.push({
-            position: index + 1,
-            reversed: false,
-            double: tilesMap[selectedTile].double
-          });
-        }
-        if (tilesMap[tile.tile][sideB] === tilesMap[selectedTile].b) {
-          avaiablePositions.push({
-            position: index + 1,
-            reversed: true,
-            double: tilesMap[selectedTile].double
-          });
-        }
+          const sideA = tile.reversed ? 'b' : 'a';
+          const sideB = tile.reversed ? 'a' : 'b';
+          if (tilesMap[tile.tile][sideA] === tilesMap[selectedTile].a) {
+            avaiablePositions.push({
+              position: index - 1,
+              reversed: true,
+              double: tilesMap[selectedTile].double
+            });
+          }
+          if (tilesMap[tile.tile][sideA] === tilesMap[selectedTile].b) {
+            avaiablePositions.push({
+              position: index - 1,
+              reversed: false,
+              double: tilesMap[selectedTile].double
+            });
+          }
+          if (tilesMap[tile.tile][sideB] === tilesMap[selectedTile].a) {
+            avaiablePositions.push({
+              position: index + 1,
+              reversed: false,
+              double: tilesMap[selectedTile].double
+            });
+          }
+          if (tilesMap[tile.tile][sideB] === tilesMap[selectedTile].b) {
+            avaiablePositions.push({
+              position: index + 1,
+              reversed: true,
+              double: tilesMap[selectedTile].double
+            });
+          }
 
-        if (tilesMap[tile.tile].double) {
-          if (tilesMap[tile.tile].a === tilesMap[selectedTile].a) {
-            avaiablePositions.push({
-              position: index - NUM_TILES,
-              reversed: true,
-              double: !tilesMap[selectedTile].double
-            });
-          }
-          if (tilesMap[tile.tile].a === tilesMap[selectedTile].b) {
-            avaiablePositions.push({
-              position: index - NUM_TILES,
-              reversed: false,
-              double: !tilesMap[selectedTile].double
-            });
-          }
-          if (tilesMap[tile.tile].b === tilesMap[selectedTile].a) {
-            avaiablePositions.push({
-              position: index + NUM_TILES,
-              reversed: false,
-              double: !tilesMap[selectedTile].double
-            });
-          }
-          if (tilesMap[tile.tile].b === tilesMap[selectedTile].b) {
-            avaiablePositions.push({
-              position: index + NUM_TILES,
-              reversed: true,
-              double: !tilesMap[selectedTile].double
-            });
+          if (tilesMap[tile.tile].double) {
+            if (tilesMap[tile.tile].a === tilesMap[selectedTile].a) {
+              avaiablePositions.push({
+                position: index - NUM_TILES,
+                reversed: true,
+                double: !tilesMap[selectedTile].double
+              });
+            }
+            if (tilesMap[tile.tile].a === tilesMap[selectedTile].b) {
+              avaiablePositions.push({
+                position: index - NUM_TILES,
+                reversed: false,
+                double: !tilesMap[selectedTile].double
+              });
+            }
+            if (tilesMap[tile.tile].b === tilesMap[selectedTile].a) {
+              avaiablePositions.push({
+                position: index + NUM_TILES,
+                reversed: false,
+                double: !tilesMap[selectedTile].double
+              });
+            }
+            if (tilesMap[tile.tile].b === tilesMap[selectedTile].b) {
+              avaiablePositions.push({
+                position: index + NUM_TILES,
+                reversed: true,
+                double: !tilesMap[selectedTile].double
+              });
+            }
           }
         }
-      }
-    });
+      });
 
     this.clearPlaceholders();
     this.showPlaceholders(avaiablePositions);
@@ -361,7 +372,11 @@ class Game extends React.Component {
 
     await fetch(`/games/${this.state.id}/update`, {
       method: 'POST',
-      body: JSON.stringify({ playerTiles: this.state.playerTiles }),
+      body: JSON.stringify({
+        playerTiles: this.state.playerTiles,
+        boardTiles: this.state.boardTiles,
+        currentPlayer: this.state.currentPlayer + 1
+      }),
       credentials: 'include'
     }).then(response => {
       if (response.ok) {

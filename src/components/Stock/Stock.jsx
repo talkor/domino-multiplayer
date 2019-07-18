@@ -5,7 +5,7 @@ import './Stock.css';
 const Stock = props => {
   return (
     <React.Fragment>
-      {props.isGameOver ? (
+      {props.isGameOver || !props.visible ? (
         ''
       ) : (
         <Tile
