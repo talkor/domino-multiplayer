@@ -8,7 +8,13 @@ const GameToolbar = props => {
     <React.Fragment>
       <div className="toolbar">
         <span>
-          <strong>Waiting for players</strong>
+          {props.numPlayers !== props.players.length ? (
+            <strong>Waiting for players</strong>
+          ) : (
+            <strong>
+              {props.players[props.currentPlayer].userName} Playing
+            </strong>
+          )}
         </span>
         <span>Turns: {props.stats.numTurns}</span>
         <span>Withdrawals: {props.stats.stockWithdrawals}</span>

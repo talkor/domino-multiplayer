@@ -44,8 +44,9 @@ class Game extends React.Component {
           uiMessage={this.state.uiMessage}
           elapsedSeconds={this.state.elapsedSeconds}
           isGameOver={this.state.isGameOver}
-          // onNewGameClick={() => this.onNewGameClick()}
           players={this.state.players}
+          numPlayers={this.state.numPlayers}
+          currentPlayer={this.state.currentPlayer}
         />
         <Board
           boardTiles={this.state.boardTiles}
@@ -139,24 +140,6 @@ class Game extends React.Component {
     });
     this.stopTimer();
     this.initTimer();
-  }
-
-  generateBoardTiles() {
-    // const boardTiles = new Array(BOARD_SIZE).fill({}).map((_, index) => {
-    //   return {
-    //     id: index,
-    //     tile: 0,
-    //     placed: false,
-    //     placeholder: true,
-    //     rotated: true,
-    //     rendered: false
-    //   };
-    // });
-    // boardTiles[MIDDLE_TILE].rendered = true;
-    // boardTiles[MIDDLE_TILE].isFirst = true;
-    // this.setState({
-    //   boardTiles
-    // });
   }
 
   async setSelectedTile(selectedTile) {
