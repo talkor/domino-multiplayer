@@ -27,7 +27,13 @@ const GameToolbar = props => {
       <div className="player-status-container">
         {props.players &&
           props.players.map((player, index) => (
-            <PlayerStatus key={index} player={player} />
+            <PlayerStatus
+              key={index}
+              player={player}
+              currentPlayer={
+                props.players[props.currentPlayer].userName === player.userName
+              }
+            />
           ))}
       </div>
       <div

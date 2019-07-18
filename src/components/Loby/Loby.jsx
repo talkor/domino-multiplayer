@@ -41,7 +41,40 @@ class Loby extends React.Component {
     );
   }
 
+  componentDidMount() {
+    fetch('/users/', { method: 'GET', credentials: 'include' })
+      .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        console.log(response);
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        this.setState({ showGame: data.playing !== '', id: data.playing });
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+
   onGameClick(event, id) {
+    fetch(`/users/join/${id}`, {
+      method: 'POST',
+      credentials: 'include'
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response;
+        }
+        console.log(response);
+        return response;
+      })
+      .catch(err => {
+        throw err;
+      });
+
     return fetch(`/games/${id}/join`, { method: 'GET', credentials: 'include' })
       .then(response => {
         if (!response.ok) {
