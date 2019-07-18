@@ -100,3 +100,42 @@
     transform: translate3d(0, 50px, 0);
   }
 }
+
+@media (max-width: 805px) {
+  .domino-effect .tile {
+    max-width: 75%;
+    max-height: 75%;
+  }
+  .domino-effect .placed .dot {
+    width: 4.5px;
+    height: 4.5px;
+  }
+  .domino-effect .placed .side-a,
+  .domino-effect .placed .side-b {
+    height: 20px;
+  }
+  .domino-effect .tile .side-a,
+  .domino-effect .tile .side-b {
+    max-width: 75%;
+    max-height: 75%;
+  }
+}
+  @media (max-width: 602px) {
+    .domino-effect .tile {
+      max-width: 75%;
+      max-height: 75%;
+    }
+    .domino-effect .placed .dot {
+      width: 3px;
+      height: 3px;
+    }
+    .domino-effect .placed .side-a,
+    .domino-effect .placed .side-b {
+      height: 15px;
+    }
+    .domino-effect .tile .side-a,
+    .domino-effect .tile .side-b {
+      max-width: 75%;
+      max-height: 75%;
+    }
+}

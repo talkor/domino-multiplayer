@@ -5,6 +5,7 @@ import Stock from '../Stock/Stock.jsx';
 import GameToolbar from '../GameToolbar/GameToolbar.jsx';
 import { tilesMap } from '../../TilesMap';
 import './Game.css';
+import Button from '../Button/Button.jsx';
 
 const NUM_STACK = 6;
 const NUM_TILES = 28;
@@ -47,6 +48,12 @@ class Game extends React.Component {
           // onNewGameClick={() => this.onNewGameClick()}
           players={this.state.players}
         />
+        <Button
+          name="Back to Loby"
+          stats={this.state.stats}
+          uiMessage={this.state.uiMessage}
+          onBackToLobyClick={() => this.onBackToLobyClick()}
+        />
         <Board
           boardTiles={this.state.boardTiles}
           selectedTile={this.state.selectedTile}
@@ -69,6 +76,7 @@ class Game extends React.Component {
             visible={this.state.playing}
           />
         </div>
+        
       </div>
     );
   }
@@ -139,6 +147,15 @@ class Game extends React.Component {
     });
     this.stopTimer();
     this.initTimer();
+  }
+
+  onBackToLobyClick() {
+    console.log('nihaoo');
+    // this.setState({ showGame: false });
+  }
+
+  newMethod() {
+    return 'New game sdwdtarted';
   }
 
   generateBoardTiles() {

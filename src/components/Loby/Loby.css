@@ -7,3 +7,17 @@
   padding-left: 0;
   margin: 0 10px 0 0;
 }
+
+@media (max-width: 805px) {
+  .lists-container { 
+    max-width: 75%;
+    max-height: 75%;
+  }
+}
+
+@media (max-width: 602px) {
+  .lists-container { 
+    max-width: 50%;
+    max-height: 50%;
+  }
+}
