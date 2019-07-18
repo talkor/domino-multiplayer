@@ -77,3 +77,14 @@
 .close:after {
   transform: rotate(-45deg);
 }
+
+@media (max-width: 925px) {
+  .new-game-modal-main input{
+    max-width: 75%;
+  }
+}
+@media (max-width: 602px) {
+  .new-game-modal-main input{
+    max-width: 50%;
+  }
+}

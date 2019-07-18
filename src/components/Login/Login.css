@@ -23,3 +23,16 @@ h1 {
   border: 1px solid rgb(5, 117, 230, 0.7);
   outline: 0 none;
 }
+
+@media (max-width: 805px) {
+  .login {
+    max-width: 75%;
+    max-height: 75%;
+  }
+}
+  @media (max-width: 602px) {
+    .login {
+      max-width: 50%;
+      max-height: 50%;
+    }
+}
