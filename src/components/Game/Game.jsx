@@ -5,6 +5,7 @@ import Stock from '../Stock/Stock.jsx';
 import GameToolbar from '../GameToolbar/GameToolbar.jsx';
 import { tilesMap } from '../../TilesMap';
 import './Game.css';
+import Button from '../Button/Button.jsx';
 
 const NUM_STACK = 6;
 const NUM_TILES = 28;
@@ -47,6 +48,12 @@ class Game extends React.Component {
           players={this.state.players}
           numPlayers={this.state.numPlayers}
           currentPlayer={this.state.currentPlayer}
+        />
+        <Button
+          name="Back to Loby"
+          stats={this.state.stats}
+          uiMessage={this.state.uiMessage}
+          onBackToLobyClick={() => this.onBackToLobyClick()}
         />
         <Board
           boardTiles={this.state.boardTiles}
