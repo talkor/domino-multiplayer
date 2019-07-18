@@ -27,7 +27,7 @@ class Home extends React.Component {
         ) : (
           <Loby
             user={this.state.currentUser}
-            onUserLoghout={this.onUserLoghout}
+            onUserLoghout={this.onUserLoghout.bind(this)}
           />
         )}
       </React.Fragment>

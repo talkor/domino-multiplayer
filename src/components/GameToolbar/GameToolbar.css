@@ -54,11 +54,17 @@
     width: 75%;
     font-size: 75%;
   }
+  .player-status-container {
+    max-width: 75%;
+  }
 }
 
 @media (max-width: 602px) {
   .toolbar {
     width: 50%;
     font-size: 50%;
+  }
+  .player-status-container {
+    max-width: 50%;
   }
 }

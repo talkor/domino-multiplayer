@@ -17,7 +17,7 @@ class NewGame extends React.Component {
       <div className="new-game-modal">
         <div className="new-game-modal-main">
           <a href="#" className="close" onClick={this.props.onModalClose} />
-          <h1>Cretae a New Game</h1>
+          <h1>Create a New Game</h1>
           <form onSubmit={this.onNewGame.bind(this)}>
             <label className="form-title" htmlFor="title">
               Game Title
