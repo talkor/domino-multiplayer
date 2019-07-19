@@ -52,29 +52,29 @@ class Game extends React.Component {
           selectedTile={this.state.selectedTile}
           onTilePlaced={this.onTilePlaced.bind(this)}
         />
-        <div className="player-section">
-          <Stock
-            gameTiles={this.state.gameTiles}
-            empty={this.state.gameTiles.length === 0}
-            onStockWithdrawal={this.onStockWithdrawal.bind(this)}
-            isGameOver={this.state.isGameOver}
-            visible={this.state.playing}
-          />
-          <PlayerStack
-            playerTiles={this.state.playerTiles}
-            selectedTile={this.state.selectedTile}
-            setSelectedTile={this.setSelectedTile.bind(this)}
-            onTilePlace={this.onTilePlaced.bind(this)}
-            isGameOver={this.state.isGameOver}
-            visible={this.state.playing}
-          />
-        </div>
+        {this.state.active ? (
+          <div className="player-section">
+            <Stock
+              gameTiles={this.state.gameTiles}
+              empty={this.state.gameTiles.length === 0}
+              onStockWithdrawal={this.onStockWithdrawal.bind(this)}
+              isGameOver={this.state.isGameOver}
+              visible={this.state.playing}
+            />
+            <PlayerStack
+              playerTiles={this.state.playerTiles}
+              selectedTile={this.state.selectedTile}
+              setSelectedTile={this.setSelectedTile.bind(this)}
+              onTilePlace={this.onTilePlaced.bind(this)}
+              isGameOver={this.state.isGameOver}
+              visible={this.state.playing}
+            />
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
-  }
-
-  async componentDidMount() {
-    // await this.getGameData();
   }
 
   getGameData() {
@@ -123,8 +123,6 @@ class Game extends React.Component {
   }
 
   async startGame() {
-    // await this.generateBoardTiles();
-
     this.showUiMessage('New game started', { type: 'info' });
     this.setState({
       elapsedSeconds: 0,

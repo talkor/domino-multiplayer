@@ -62,11 +62,9 @@ class Loby extends React.Component {
         if (!response.ok) {
           throw response;
         }
-        console.log(response);
         return response.json();
       })
       .then(data => {
-        console.log(data);
         this.setState({ showGame: data.playing !== '', id: data.playing });
       })
       .catch(err => {
@@ -83,7 +81,6 @@ class Loby extends React.Component {
         if (!response.ok) {
           throw response;
         }
-        console.log(response);
         return response;
       })
       .catch(err => {
@@ -95,7 +92,6 @@ class Loby extends React.Component {
         if (!response.ok) {
           throw response;
         }
-        console.log(response);
         return response;
       })
       .then(() => {
@@ -115,7 +111,6 @@ class Loby extends React.Component {
         if (!response.ok) {
           throw response;
         }
-        console.log(response);
         return response;
       })
       .then(() => {
@@ -130,9 +125,7 @@ class Loby extends React.Component {
       credentials: 'include'
     }).then(response => {
       if (!response.ok) {
-        console.log(response);
       }
-      // this.setState({ currentUser: { name: '' }, showLogin: true });
     });
   }
 }
