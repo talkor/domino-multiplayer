@@ -107,7 +107,6 @@ router.post('/:id/update', auth.userAuthentication, (req, res) => {
   const userName = auth.getUserInfo(req.session.id).name;
   const data = JSON.parse(req.body);
 
-  // TODO: Refactor
   currentGame.players.find(player => player.userName === userName).playerTiles =
     data.playerTiles;
 

@@ -355,7 +355,9 @@ class Game extends React.Component {
       body: JSON.stringify({
         playerTiles: this.state.playerTiles,
         boardTiles: this.state.boardTiles,
-        currentPlayer: this.state.currentPlayer + 1
+        currentPlayer: this.state.currentPlayer + 1,
+        isGameOver: isGameOver.result,
+        winner: isGameOver.winner
       }),
       credentials: 'include'
     }).then(response => {

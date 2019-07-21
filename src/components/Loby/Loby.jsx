@@ -16,6 +16,8 @@ class Loby extends React.Component {
       showGame: false,
       id: 0
     };
+
+    this.fetchUsers();
   }
 
   render() {
@@ -56,7 +58,7 @@ class Loby extends React.Component {
     );
   }
 
-  componentDidMount() {
+  fetchUsers() {
     fetch('/users/', { method: 'GET', credentials: 'include' })
       .then(response => {
         if (!response.ok) {

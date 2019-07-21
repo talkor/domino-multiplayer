@@ -12,8 +12,6 @@ class Home extends React.Component {
         name: ''
       }
     };
-
-    this.getUserName();
   }
 
   render() {
